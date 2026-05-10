@@ -326,6 +326,9 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
             NSDictionary* args = (NSDictionary*)call.arguments;
             NSString  *remoteId       = args[@"remote_id"];
             NSNumber  *autoConnect    = args[@"auto_connect"];
+            NSString  *remoteId                  = args[@"remote_id"];
+            NSNumber  *autoConnect               = args[@"auto_connect"];
+            NSNumber  *enableTransportBridging   = args[@"enable_transport_bridging"];
 
             // check adapter state
             if ([self isAdapterOn] == false) {
@@ -386,7 +389,19 @@ typedef NS_ENUM(NSUInteger, LogLevel) {
                 // note: use CBConnectPeripheralOptionEnableAutoReconnect constant
                 // when all developers can be excpected to be on iOS 17+
                 [options setObject:autoConnect forKey:@"kCBConnectOptionEnableAutoReconnect"];
-            } 
+            }
+
+            // CTKD transport bridging (iOS 13+)
+            // When enabled, iOS automatically bridges this BLE connection to a
+            // BR/EDR (Classic Bluetooth) connection after CTKD pairing, allowing
+            // A2DP/HFP profiles to establish without manual user interaction in
+            // iOS Settings > Bluetooth.
+            // See: CBConnectPeripheralOptionEnableTransportBridgingKey
+            if (@available(iOS 13, *)) {
+                if ([enableTransportBridging boolValue]) {
+                    [options setObject:@YES forKey:CBConnectPeripheralOptionEnableTransportBridgingKey];
+                }
+            }
 
             [self.centralManager connectPeripheral:peripheral options:options];
 

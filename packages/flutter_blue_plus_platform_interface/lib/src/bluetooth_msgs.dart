@@ -216,15 +216,25 @@ class BmConnectRequest {
   DeviceIdentifier remoteId;
   bool autoConnect;
 
+  /// iOS only: if true, passes [CBConnectPeripheralOptionEnableTransportBridgingKey]
+  /// to [CBCentralManager connectPeripheral:options:], which causes iOS to
+  /// automatically bridge the BLE connection to a BR/EDR (Classic Bluetooth)
+  /// connection after CTKD pairing. Required for A2DP/HFP profiles when the
+  /// device uses CTKD for cross-transport key derivation.
+  /// Available on iOS 13+. Ignored on Android.
+  bool enableTransportBridging;
+
   BmConnectRequest({
     required this.remoteId,
     required this.autoConnect,
+    this.enableTransportBridging = false,
   });
 
   Map<dynamic, dynamic> toMap() {
     final Map<dynamic, dynamic> data = {};
     data['remote_id'] = remoteId.str;
     data['auto_connect'] = autoConnect ? 1 : 0;
+    data['enable_transport_bridging'] = enableTransportBridging ? 1 : 0;
     return data;
   }
 }
