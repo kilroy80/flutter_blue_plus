@@ -15,11 +15,34 @@ dependencies:
   #  - simpler bug reporting
   #  - unified changelog
   #  - users can still manually override
-  flutter_blue_plus_platform_interface: 7.0.0
-  flutter_blue_plus_android: 7.0.4
-  flutter_blue_plus_darwin: 7.0.3
-  flutter_blue_plus_linux: 7.0.3
-  flutter_blue_plus_web: 7.0.2
+#  flutter_blue_plus_platform_interface: 7.0.0
+#  flutter_blue_plus_android: 7.0.4
+#  flutter_blue_plus_darwin: 7.0.3
+#  flutter_blue_plus_linux: 7.0.3
+#  flutter_blue_plus_web: 7.0.2
+
+  flutter_blue_plus_platform_interface:
+    git:
+      url: https://github.com/kilroy80/flutter_blue_plus.git
+      path: packages/flutter_blue_plus_platform_interface
+  flutter_blue_plus_android:
+    git:
+      url: https://github.com/kilroy80/flutter_blue_plus.git
+      path: packages/flutter_blue_plus_android
+  flutter_blue_plus_darwin:
+    git:
+      url: https://github.com/kilroy80/flutter_blue_plus.git
+      path: packages/flutter_blue_plus_darwin
+  flutter_blue_plus_linux:
+    git:
+      url: https://github.com/kilroy80/flutter_blue_plus.git
+      path: packages/flutter_blue_plus_linux
+  flutter_blue_plus_web:
+    git:
+      url: https://github.com/kilroy80/flutter_blue_plus.git
+      path: packages/flutter_blue_plus_web
+
+  flutter_blue_plus_winrt: 0.0.20
 
 dev_dependencies:
   flutter_lints: ^5.0.0
@@ -39,3 +62,5 @@ flutter:
         default_package: flutter_blue_plus_darwin
       web:
         default_package: flutter_blue_plus_web
+      windows:
+        default_package: flutter_blue_plus_winrt
